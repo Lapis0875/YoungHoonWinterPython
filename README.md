@@ -8,8 +8,7 @@
 
 1. [복습](./Day1/Reminder/Content.md)
 2. [객체지향 101](./Day1/OOP101/Content.md)
-3. [클래스, 객체, 인스턴스](./Day1/ClassObjectInstance/Content.md)
-4. [메소드와 self]()
+3. [메소드와 self](./Day1/Method_And_Self/Content.md)
 
 ### 2일차
 
