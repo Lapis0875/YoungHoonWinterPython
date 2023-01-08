@@ -235,3 +235,7 @@ you = ( 3 )
 <br/>
 
 - 6번 슬라이드 객체지향 이미지 출처 : [https://www.reddit.com/r/ProgrammerHumor/comments/418x95/theory_vs_reality/](https://www.reddit.com/r/ProgrammerHumor/comments/418x95/theory_vs_reality/)
+
+---
+
+# 강의를 들어줘서 고마워요 :wink:
