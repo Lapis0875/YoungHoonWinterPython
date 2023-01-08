@@ -9,7 +9,7 @@ math: mathjax
 
 <style>
   :root {
-    --color-fg-default: #c9d1d9;ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
+    --color-fg-default: #c9d1d9;
     --color-canvas-default: #0d1117;
   }
 </style>
