@@ -23,7 +23,7 @@ math: mathjax
 <br/>
 <br/>
 <br/>
-<p style="text-align: right">숭실대학교 소프트웨어학부 김민준</p>
+<h3 style="text-align: right">숭실대학교 소프트웨어학부 김민준</h3>
 
 ---
 
