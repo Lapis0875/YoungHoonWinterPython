@@ -240,11 +240,18 @@ class NumberBox:
 ```python
 a = 1
 b = "hello"
+c = 3.14
 
 if isinstance(a, int):  # a는 정수이므로, 참
     print("a는 정수")
 if isinstance(b, int):  # b는 문자열이므로, 거짓
     print("b도 정수")
+
+# 두번째 인자에 튜플로 둘 이상의 클래스를 묶어서 전달하면,
+# 튜플 내의 클래스들 중 한 가지의 인스턴스에 해당할 경우 참이에요.
+
+if isinstance(c, (int, float)):  # c는 실수이므로, 참이에요.
+    print("c는 정수이거나 실수이다.")
 ```
 
 ---
@@ -382,7 +389,7 @@ class FloatBox:
     
     def __div__(self, other):
         if isinstance(other, FloatBox):
-            # 우항도 NumberBox의 인스턴스일 때
+            # 우항도 FloatBox 인스턴스일 때
             return FloatBox(self.value / other.value)
         elif isinstance(other, (int, float)):
             # 우항이 int형 또는 float형 값일 때
@@ -422,7 +429,7 @@ for i in [1, 3, 5, 7, 9]:
 
 <br/>
 
-파이썬에서, 반복 가능한 객체는 `__iter__`과 `__next__`dml 2가지 매직메소드를 재정의해서 구현해요.
+파이썬에서, 반복 가능한 객체는 `__iter__`과 `__next__`의 2가지 매직메소드를 재정의해서 구현해요.
 간단하게, range를 따라 만들어볼게요.
 
 ---
@@ -449,16 +456,57 @@ class MyRange:
 
 <br/>
 
-반복 가능한 (Iterable한) 객체 는 `__iter__`
+반복 가능한 (Iterable한) 객체는 `__iter__` 매직메소드를 정의해요.
+이 매직메소드는 내부적으로 호출되어, 반복자 (Iterator)를 얻어요.
+우리가 만들 MyRange는 별도의 Iterator 없이 그 자체가 반복자로도 기능하게끔 구현하려고 해요.
+그러므로, `__iter__`은 self를 그대로 반환해주면 돼요.
 
 <br/>
 
 ```python
 class MyRange:
-    def __init__(self, start: int, end: int, step: int):
-        self.end: int = end
-        self.step: int = step
-        self.index: int = start
+    ...
+    def __iter__(self):
+        return self
+```
+---
+
+# 반복 가능한 객체 만들기 4
+
+<br/>
+
+반복자(Iterator)는 `__next__` 매직메소드를 정의해요.
+이 매직메소드는 내부적으로 호출되어, for문 등에서 반복할 때, 매 반복마다 한번씩 호출되어 값을 전달해요.
+만약 반복이 끝났다면, `StopIteration` 예외를 발생시켜요.
+
+<br/>
+
+```python
+class MyRange:
+    ...
+    def __next__(self):
+        if self.index == self.end:
+            # 반복이 끝났으므로 StopIteration` 예외를 발생시켜요.
+            raise StopIteration()
+        v = self.index
+        self.index += 1
+        return v
+```
+---
+
+# 반복 가능한 객체 만들기 5
+
+<br/>
+
+이제 앞서 만든 MyRange와 range의 출력 결과를 비교해볼게요.
+
+<br/>
+
+```python
+for i in range(5):
+    print(i)
+for i in MyRange(0, 5, 1):
+    print(i)
 ```
 
 ---
@@ -548,6 +596,75 @@ class Fibonacci:
 for i in Fibonacci(5):
     print(i)
         
+```
+
+---
+
+# 4. 호출 가능한 객체 만들기
+
+---
+
+# 호출 가능한 객체
+
+<br/>
+
+호출 가능한 (Callable한) 객체는 함수처럼 호출 가능한 객체에요.
+
+---
+
+# 호출 가능한 객체의 구현
+
+<br/>
+
+호출 가능한 (Callable한) 객체는 `__call__` 매직메소드를 정의해요.
+
+```python
+class Add:
+    def __call__(self, x, y):
+        return x + y
+
+add = Add()
+print(add(1, 2))    # 3
+```
+
+---
+
+# 실습 5 : N을 곱하는 객체 만들기
+
+<br/>
+
+생성자 (`__init__`)의 인자로 N을 받고, 이후 호출시 x를 받아 N * x를 계산해주는 객체를 만드세요.
+
+```python
+# 예시
+class MultiplyN:
+    pass
+
+mul3 = MultiplyN(3)
+print(mul3(4))      # 12
+mul5 = MultiplyN(5)
+print(mul5(4))      # 20
+```
+
+---
+
+# 실습 5 : N을 곱하는 객체 만들기 (정답)
+
+<br/>
+
+```python
+# 예시
+class MultiplyN:
+    def __init__(self, n):
+        self.n = n
+    
+    def __call__(self, x):
+        return self.n * x
+
+mul3 = MultiplyN(3)
+print(mul3(4))      # 12
+mul5 = MultiplyN(5)
+print(mul5(4))      # 20
 ```
 
 ---
